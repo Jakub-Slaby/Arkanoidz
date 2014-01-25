@@ -48,3 +48,6 @@ header .stuts span {
     position: relative;
     width: 800px;
 }
+#scene{
+    cursor:none;
+}
