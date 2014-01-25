@@ -107,10 +107,12 @@ function drawScene() {
     ctx.closePath();
     ctx.fill();
 
-    if (bRightBut)
+    if (bRightBut && oPadd.x < width-120){
         oPadd.x += 5;
-    else if (bLeftBut)
+    }
+    else if (bLeftBut &&  oPadd.x > 0){
         oPadd.x -= 5;
+    }
 
     // draw Padd (rectangle)
     ctx.drawImage(oPadd.img, oPadd.x, ctx.canvas.height - oPadd.h);
