@@ -1,7 +1,7 @@
 Arkanoidz
 =========
 
-Game experiment for bachelor's project
+A game experiment for my bachelor's project
 =======================================
 For my bachelor's project, I am trying to find simple guidelines that can help game developers and game designers
 design better casual games. First I worked through a literature review and a number of case studies and 
