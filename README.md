@@ -29,3 +29,6 @@ I'm developing 5 versions of the game
   
 I'll then use Analytics to get the data that can be valuable to my experiment and analyse that data to come up 
 with some conclusions.
+
+Read more about it here:
+http://casual-gaming.tumblr.com/
