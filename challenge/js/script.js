@@ -40,7 +40,7 @@ function Bricks(w, h, r, c, p) {
     this.c = c; // cols
     this.p = p; // padd
     this.objs;
-    this.colors = ['#9d9d9d', '#f80207', '#feff01', '#0072ff', '#fc01fc', '#03fe03']; // colors for rows
+    this.colors = ['#f80207', '#feff01', '#0072ff', '#fc01fc', '#03fe03']; // colors for rows
 }
 
 
@@ -60,7 +60,7 @@ function initialise(){
     //creating objects
     oBall = new Ball(width / 2, 550, 0.5, -5, 10); // position x, position y, speed/angle x, speed/angle y, radius
     oPadd = new Padd(width / 2, 120, 20, padImg); // position x, width ,height, image 
-    oBricks = new Bricks((width / 8) - 1, 20, 6, 8, 5); // width of a single brick, height of a single brick,number of bricks vertically, number of bricks horizontally, brick padding
+    oBricks = new Bricks((width / 6 -5) - 1, 20, 5, 6, 5); // width of a single brick, height of a single brick,number of bricks vertically, number of bricks horizontally, brick padding
 
     //filling bricks
     oBricks.objs = new Array(oBricks.r);
