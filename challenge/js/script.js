@@ -108,10 +108,10 @@ function drawScene() {
     ctx.fill();
 
     if (bRightBut && oPadd.x < width-120){
-        oPadd.x += 5;
+        oPadd.x += 10;
     }
     else if (bLeftBut &&  oPadd.x > 0){
-        oPadd.x -= 5;
+        oPadd.x -= 10;
     }
 
     // draw Padd (rectangle)
@@ -200,6 +200,9 @@ function collisionDetection(){
         oBricks.objs[iRow][iCol] = 0;
         oBall.dy = -oBall.dy;
         iPoints++;
+        if (iPoints % 2 === 0){
+            oBall.dy = oBall.dy*1.1; 
+        }
 
         //aSounds[0].play(); // play sound
     }
