@@ -1,3 +1,4 @@
+Clay.ready( function() {
 // inner variables
 var canvas, ctx;
 var width, height;
@@ -14,10 +15,12 @@ var iGameTimer;
 //elapsed time
 var iElapsed = iMin = iSec = 0;
 //variables saving last scored time and points
-var sLastTime, sLastPoints;
+var bestTime;
 //my vars
-var trackScore;
 var trackTime;
+
+var leaderboard = new Clay.Leaderboard({id: 2684});;
+
 
 //functions for creating objects
 function Ball(x, y, dx, dy, r) {
@@ -83,8 +86,7 @@ function initialise(){
     iGameTimer = setInterval(countTimer, 1000); // inner game timer
 
     // HTML5 Local storage - get values
-    sLastTime = localStorage.getItem('last-time');
-    sLastPoints = localStorage.getItem('last-points');
+    bestTime = localStorage.getItem('best-time');
 
     allowMouseControl();
     allowKeyboardControl();
@@ -144,12 +146,10 @@ function drawScene() {
     if (iSec < 10) iSec = "0" + iSec;
 
     //current stats
-    ctx.fillText('Time: ' + iMin + ':' + iSec, 600, 520);
-    ctx.fillText('Points: ' + iPoints, 600, 550);
+    ctx.fillText('Time: ' + iMin + ':' + iSec, 400, 520);
     //previous stats
-    if (sLastTime != null && sLastPoints != null) {
-        ctx.fillText('Last Time: ' + sLastTime, 600, 460);
-        ctx.fillText('Last Points: ' + sLastPoints, 600, 490);
+    if (bestTime != null) {
+        ctx.fillText('Best Time: ' + bestTime, 400, 500);
     }
     collisionDetection();
 }
@@ -231,16 +231,31 @@ function collisionDetection(){
             console.log('Game Over') ;
             clearInterval(iStart);
             clearInterval(iGameTimer);
-            trackScore = iPoints;
             trackTime = iElapsed;
-            console.log(trackScore)
             console.log(trackTime);
+            leaderboard.post( { score: iGameTimer }, function(response) {
+                console.log( response );
+            } );
+
+            var options = { // all of these are optional
+                html: "<strong>Hi</strong>", // Optional, any custom html you want to show below the name
+                sort: 'asc', // Optional, sorting by "asc" will show the lowest scores first (ex. for fastest times)
+                filter: ['day', 'month'], // Optional, Array of filters to narrow down high scores
+                cumulative: false, // Optional, if set to true grabs the sum of all scores for each player
+                best: false, // Optional, if set to true grabs the best score from each player
+                limit: 10, // Optional, how many scores to show (0 for all). Default is 10
+                self: false, // Optional, Boolean if set to true shows just the scores of the player viewing
+                showPersonal: true // Optional, Boolean on if the player's stats (rank & high score) should show below the name. Default is false
+            };
+            var callback = function( response ) { // Optional
+                console.log( response );
+            };
+            leaderboard.show( options, callback );
 
             // HTML5 Local storage - save values
-            localStorage.setItem('last-time', iMin + ':' + iSec);
-            localStorage.setItem('last-points', iPoints);
-            clearCanvas();
-            //initialise();
+            localStorage.setItem('best-time', iMin + ':' + iSec);
+            console.log(bestTime);
+            //clearCanvas();
 
            // aSounds[1].play(); // play sound
         }
@@ -251,3 +266,4 @@ function countTimer() {
 }
 
 initialise();
+} );
