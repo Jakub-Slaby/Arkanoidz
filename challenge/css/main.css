@@ -51,3 +51,23 @@ header .stuts span {
 #scene{
     cursor:none;
 }
+
+#loseScreenDiv, #winScreenDiv{
+    display:none;
+    margin:auto;
+    text-align:center;
+}
+
+#introScreenDiv{
+    height:300px;
+    width:300px;
+    margin:auto;
+    background-color:black;
+    text-align:center;
+}
+
+#startGameButton, #restartGameButton{
+    width:100px;
+    position:relative;
+    margin:0 auto;
+}

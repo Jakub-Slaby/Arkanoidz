@@ -43,6 +43,26 @@
             <h2>Challenge Arkanoid</h2>
         </header>
         <div class="container">
+            <div id="introScreenDiv">
+                <div id="controlsInfo">
+                    <p>
+                    This came game can be controlled with the left and right arrow keys or your mouse. Please press the button below to start.
+                    </p>
+                </div>
+                <button id='startGameButton'>Start Game</button>
+            </div>
+             <div id="loseScreenDiv">
+                <div id="loseScreenText">
+                    <p>
+                    You lost! Would you like to try again?
+                    </p>
+                </div>
+
+                <button id='restartGameButton'>Try Again</button>
+            </div>
+            <div id="winScreenDiv">
+                <button id='restartGameButton'>You won would you like to try again and try to beat your own score?</button>
+            </div>
             <canvas id="scene" width="600" height="600"></canvas>
         </div>
     </body>
