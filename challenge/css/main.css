@@ -53,6 +53,7 @@ header .stuts span {
 }
 
 #loseScreenDiv, #winScreenDiv{
+    position:absolute;
     display:none;
     margin:auto;
     text-align:center;
@@ -60,6 +61,7 @@ header .stuts span {
 
 #introScreenDiv{
     height:300px;
+    z-index: :9999;
     width:300px;
     margin:auto;
     background-color:black;

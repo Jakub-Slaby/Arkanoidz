@@ -18,7 +18,6 @@ Clay.ready( function() {
     var bestTime;
     //my vars
     var trackTime;
-
     var leaderboard = new Clay.Leaderboard({id: 2684});;
 
 
@@ -231,7 +230,7 @@ Clay.ready( function() {
                 localStorage.setItem('best-time', iMin + ':' + iSec);
                 console.log(bestTime);
                 clearCanvas();
-                winScreen();
+                $("#winScreenDiv").show();
             }
 
             //aSounds[0].play(); // play sound
@@ -263,7 +262,7 @@ Clay.ready( function() {
                 clearInterval(iGameTimer);
                 iPoints = 0;
                 clearCanvas();
-                loseScreen();
+                $("#loseScreenDiv").show();
 
                // aSounds[1].play(); // play sound
             }
@@ -280,22 +279,11 @@ Clay.ready( function() {
         });
     }
 
-    function loseScreen(){
-        $("#loseScreenDiv").show();
-        $( "#restartGameButton" ).click(function() {
+    $( ".restartGameButton" ).click(function() {
           $("#loseScreenDiv").hide();
+          $("#winScreenDiv").hide()
           initialise();
-        });
-    }
+    });
 
-    function winScreen(){
-        $("#winScreenDiv").show();
-        $( "#restartGameButton" ).click(function() {
-          $("#loseScreenDiv").hide()
-          initialise();
-        });
-    }
-    
     introScreen();
-
 } );
