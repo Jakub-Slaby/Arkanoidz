@@ -1,4 +1,3 @@
-Clay.ready( function() {
     // inner variables
     var canvas, ctx;
     var width, height;
@@ -18,7 +17,6 @@ Clay.ready( function() {
     var bestTime;
     //my vars
     var trackTime;
-    var leaderboard = new Clay.Leaderboard({id: 2684});;
 
 
     //functions for creating objects
@@ -207,6 +205,7 @@ Clay.ready( function() {
                 clearInterval(iStart);
                 clearInterval(iGameTimer);
                 iPoints = 0;
+                $("#winScreenDiv").show();
                 leaderboard.post( { score: iGameTimer }, function(response) {
                     console.log( response );
                 } );
@@ -230,7 +229,6 @@ Clay.ready( function() {
                 localStorage.setItem('best-time', iMin + ':' + iSec);
                 console.log(bestTime);
                 clearCanvas();
-                $("#winScreenDiv").show();
             }
 
             //aSounds[0].play(); // play sound
@@ -280,10 +278,13 @@ Clay.ready( function() {
     }
 
     $( ".restartGameButton" ).click(function() {
+        $.post("https://api.scoreoid.com/v1/createScore", {api_key:"4fe408d16ed751b2504ef2c2e3f5a4ca61551a1d",game_id:"b93478f923",response:"json", username: 'Bobro', score: 357},
+           function(response) {
+             console.log(response);
+           });
           $("#loseScreenDiv").hide();
-          $("#winScreenDiv").hide()
+          $("#winScreenDiv").hide();
           initialise();
     });
 
     introScreen();
-} );

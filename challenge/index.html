@@ -1,22 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" >
     <head>
-        <script type="text/javascript">
-        var Clay = Clay || {};
-        Clay.gameKey = "arkanoidzch";
-        Clay.options = { debug: true, hideUI: true, fail: function() {
-            console.log( "Couldn't connect" );
-        } };
-        Clay.readyFunctions = [];
-        Clay.ready = function( fn ) {
-            Clay.readyFunctions.push( fn );
-        };
-        ( function() {
-            var clay = document.createElement("script"); clay.async = true;
-            clay.src = ( "https:" == document.location.protocol ? "https://" : "http://" ) + "clay.io/api/api-stats-data-leaderboard.js"; 
-            var tag = document.getElementsByTagName("script")[0]; tag.parentNode.insertBefore(clay, tag);
-        } )();
-        </script>
         <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
         <!-- Google Analytics Content Experiment code -->
         <script type="text/javascript">
@@ -37,7 +21,7 @@
         <title>Arkanoid Challenge</title>
         <link href="css/main.css" rel="stylesheet" type="text/css" />
 
-    </head>
+    </head> 
     <body>
         <header>
             <h2>Challenge Arkanoid</h2>
