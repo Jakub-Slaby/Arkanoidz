@@ -60,16 +60,39 @@ header .stuts span {
 }
 
 #introScreenDiv{
-    height:300px;
+    font-size: 120%;
+    height:600px;
     z-index: :9999;
-    width:300px;
+    width:600px;
     margin:auto;
     background-color:black;
     text-align:center;
 }
 
-#startGameButton, #restartGameButton{
-    width:100px;
+#loseScreenDiv{
+    font-size: 120%;
+    height:600px;
+    z-index: :9999;
+    width:600px;
+    margin:auto;
+    background-color:black;
+    text-align:center;
+}
+
+#controlsInfo, #loseScreenText{
+    width:340px;
+    margin:auto;
+    padding-top:40%;
+}
+
+#startGameButton, .restartGameButton{
+    font-size: 150%;
+    width:10em;
+    height: 2em;
     position:relative;
     margin:0 auto;
+}
+
+#startGameButton{
+    margin-top:1em;
 }

@@ -278,10 +278,10 @@
     }
 
     $( ".restartGameButton" ).click(function() {
-        $.post("https://api.scoreoid.com/v1/createScore", {api_key:"4fe408d16ed751b2504ef2c2e3f5a4ca61551a1d",game_id:"b93478f923",response:"json", username: 'Bobro', score: 357},
+        /*$.post("https://api.scoreoid.com/v1/createScore", {api_key:"4fe408d16ed751b2504ef2c2e3f5a4ca61551a1d",game_id:"b93478f923",response:"json", username: 'Bobro', score: 357},
            function(response) {
              console.log(response);
-           });
+           });*/
           $("#loseScreenDiv").hide();
           $("#winScreenDiv").hide();
           initialise();
