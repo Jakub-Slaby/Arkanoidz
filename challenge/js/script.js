@@ -38,9 +38,9 @@
         this.h = h;
         this.r = r; // rows
         this.c = c; // cols
-        this.p = p; // padd
+        this.p = p; // padding
         this.objs;
-        this.colors = ['#f80207', '#feff01', '#0072ff', '#fc01fc', '#03fe03']; // colors for rows
+        this.colors = ['white']; // colors for rows
     }
 
 
@@ -54,7 +54,7 @@
 
         //pad image
         var padImg = new Image();
-        padImg.src = 'images/padd.png';
+        padImg.src = 'images/paddWhite.png';
         padImg.onload = function() {};
 
         //creating objects
@@ -100,7 +100,7 @@
         clearCanvas();
 
         // draw Ball
-        ctx.fillStyle = '#f66';
+        ctx.fillStyle = 'white';
         ctx.beginPath();
         ctx.arc(oBall.x, oBall.y, oBall.r, 0, Math.PI * 2, true);
         ctx.closePath();
@@ -114,7 +114,7 @@
         }
 
         // draw Padd (rectangle)
-        ctx.drawImage(oPadd.img, oPadd.x, ctx.canvas.height - oPadd.h);
+        ctx.drawImage(oPadd.img, oPadd.x, ctx.canvas.height - 30);
 
         // draw bricks (from array of its objects)
         for (i=0; i < oBricks.r; i++) {
@@ -206,24 +206,6 @@
                 clearInterval(iGameTimer);
                 iPoints = 0;
                 $("#winScreenDiv").show();
-                leaderboard.post( { score: iGameTimer }, function(response) {
-                    console.log( response );
-                } );
-
-                var options = { // all of these are optional
-                    html: "<strong>Hi</strong>", // Optional, any custom html you want to show below the name
-                    sort: 'asc', // Optional, sorting by "asc" will show the lowest scores first (ex. for fastest times)
-                    filter: ['day', 'month'], // Optional, Array of filters to narrow down high scores
-                    cumulative: false, // Optional, if set to true grabs the sum of all scores for each player
-                    best: false, // Optional, if set to true grabs the best score from each player
-                    limit: 10, // Optional, how many scores to show (0 for all). Default is 10
-                    self: false, // Optional, Boolean if set to true shows just the scores of the player viewing
-                    showPersonal: true // Optional, Boolean on if the player's stats (rank & high score) should show below the name. Default is false
-                };
-                var callback = function( response ) { // Optional
-                    console.log( response );
-                };
-                //leaderboard.show( options, callback );
 
                 // HTML5 Local storage - save values
                 localStorage.setItem('best-time', iMin + ':' + iSec);
