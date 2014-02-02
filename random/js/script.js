@@ -10,6 +10,7 @@
     var aSounds = [];
     //scored points
     var iPoints = 0;
+    var nBricks =0
 
 
     //functions for creating objects
@@ -40,7 +41,7 @@
         //canvas
         canvas = document.getElementById('scene');
         ctx = canvas.getContext('2d');
-
+        nBricks = 0;
         width = canvas.width;
         height = canvas.height;
 
@@ -52,16 +53,23 @@
         //creating objects
         oBall = new Ball(width / 2, 550, 0.5, -5, 10); // position x, position y, speed/angle x, speed/angle y, radius
         oPadd = new Padd(width / 2, 120, 20, padImg); // position x, width ,height, image 
-        oBricks = new Bricks((width / 6 -5) - 1, 20, 5, 6, 5); // width of a single brick, height of a single brick,number of bricks vertically, number of bricks horizontally, brick padding
+        oBricks = new Bricks((width / 6 -5) - 1, 20, 10, 6, 5); // width of a single brick, height of a single brick,number of bricks vertically, number of bricks horizontally, brick padding
 
         //filling bricks
         oBricks.objs = new Array(oBricks.r);
         for (i=0; i < oBricks.r; i++) {
             oBricks.objs[i] = new Array(oBricks.c);
             for (j=0; j < oBricks.c; j++) {
+                //randomly distribute the bricks
+                if (nBricks < 30 && (Math.random() < 0.5) == true){
+                oBricks.objs[i][j] = 0;
+                }else if(nBricks < 30)  {
                 oBricks.objs[i][j] = 1;
+                nBricks++
+                }
             }
         }
+        console.log(nBricks);
 
         iStart = setInterval(drawScene, 10); // loop drawScene
 
@@ -181,7 +189,7 @@
         }
 
         if (oBall.y + oBall.dy - oBall.r < 0) {
-            console.log('dunno what this does');
+            console.log('hit the very top');
             oBall.dy = -oBall.dy;
 
         //if ball hits the PAD, reverse in angle
