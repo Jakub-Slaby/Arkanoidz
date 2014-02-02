@@ -118,11 +118,7 @@
         clearCanvas();
 
         // draw Ball
-        ctx.fillStyle = greyGradient;
-        var greyGradient = ctx.createLinearGradient(0,0,0,1000);
-        	greyGradient.addColorStop(0,"grey");
-			greyGradient.addColorStop(1,"white");
-		ctx.fillStyle = greyGradient;
+		ctx.fillStyle = '#ced2e2';
         ctx.beginPath();
         ctx.arc(oBall.x, oBall.y, oBall.r, 0, Math.PI * 2, true);
         ctx.closePath();
