@@ -71,14 +71,6 @@
             }
         }
 
-        //initialising sounds
-        /*aSounds[0] = new Audio('media/snd1.wav');
-        aSounds[0].volume = 0.9;
-        aSounds[1] = new Audio('media/snd2.wav');
-        aSounds[1].volume = 0.9;
-        aSounds[2] = new Audio('media/snd3.wav');
-        aSounds[2].volume = 0.9;*/
-
         iStart = setInterval(drawScene, 10); // loop drawScene
         iGameTimer = setInterval(countTimer, 1000); // inner game timer
 
@@ -227,7 +219,7 @@
             oBall.dy = -oBall.dy;
 
         //if ball hits the PAD, reverse in angle
-        } else if (oBall.y + oBall.dy + oBall.r > ctx.canvas.height - oPadd.h) {
+        } else if (oBall.y + oBall.dy + oBall.r > ctx.canvas.height - 25) {
             console.log('hit the pad');
             if (oBall.x > oPadd.x && oBall.x < oPadd.x + oPadd.w) {
                 oBall.dx = 10 * ((oBall.x-(oPadd.x+oPadd.w/2))/oPadd.w);
@@ -236,7 +228,7 @@
                // aSounds[2].play(); // play sound
             }
             //if ball hits the very ground GAME OVER
-            else if (oBall.y + oBall.dy + oBall.r > ctx.canvas.height) {
+            else if (oBall.y + oBall.dy + oBall.r > ctx.canvas.height +10) {
                 console.log('Game Over') ;
                 clearInterval(iStart);
                 clearInterval(iGameTimer);
