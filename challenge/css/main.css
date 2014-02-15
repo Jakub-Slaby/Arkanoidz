@@ -59,6 +59,10 @@ header .stuts span {
     text-align:center;
 }
 
+#noNameText{
+    display:none;
+}
+
 #introScreenDiv{
     font-size: 120%;
     height:600px;

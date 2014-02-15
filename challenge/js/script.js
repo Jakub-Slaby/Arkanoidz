@@ -9,15 +9,13 @@
     //sound array
     var aSounds = [];
     //scored points
-    var iPoints = 0;
-    var iGameTimer;
+    var iBrokenBricks = 0;
+    var iTotalTime;
     //elapsed time
-    var iElapsed = iMin = iSec = 0;
+    var iScoredTime = iMin = iSec = 0;
     //variables saving last scored time and points
     var bestTime;
     //my vars
-    var trackTime;
-
 
     //functions for creating objects
     function Ball(x, y, dx, dy, r) {
@@ -59,7 +57,7 @@
 
         //creating objects
         oBall = new Ball(width / 2, 550, 0.5, -5, 10); // position x, position y, speed/angle x, speed/angle y, radius
-        oPadd = new Padd(width / 2, 120, 20, padImg); // position x, width ,height, image 
+        oPadd = new Padd(width / 2, 120, 20, padImg); // position x, width ,height, image
         oBricks = new Bricks((width / 6 -5) - 1, 20, 5, 6, 5); // width of a single brick, height of a single brick,number of bricks vertically, number of bricks horizontally, brick padding
 
         //filling bricks
@@ -72,7 +70,7 @@
         }
 
         iStart = setInterval(drawScene, 10); // loop drawScene
-        iGameTimer = setInterval(countTimer, 1000); // inner game timer
+        iTotalTime = setInterval(countTimer, 1000); // inner game timer
 
         // HTML5 Local storage - get values
         bestTime = localStorage.getItem('best-time');
@@ -88,7 +86,7 @@
         ctx.fillRect(0, 0, ctx.canvas.width, ctx.canvas.height);
     }
 
-    function drawScene() { 
+    function drawScene() {
         clearCanvas();
 
         // draw Ball
@@ -129,8 +127,8 @@
         ctx.fillStyle = '#fff';
 
         //minutes and seconds
-        iMin = Math.floor(iElapsed / 60);
-        iSec = iElapsed % 60;
+        iMin = Math.floor(iScoredTime / 60);
+        iSec = iScoredTime % 60;
         if (iMin < 10) iMin = "0" + iMin;
         if (iSec < 10) iSec = "0" + iSec;
 
@@ -155,7 +153,7 @@
     }
 
     function allowKeyboardControl(){
-        
+
         document.onkeydown = function(event){ // keyboard-down alerts
             switch (event.keyCode) {
                 case 37: // 'Left' key
@@ -188,26 +186,25 @@
         if (oBall.y < oBricks.r * iRowH && iRow >= 0 && iCol >= 0 && oBricks.objs[iRow][iCol] == 1) {
             oBricks.objs[iRow][iCol] = 0;
             oBall.dy = -oBall.dy;
-            iPoints++;
-            if (iPoints % 2 === 0){
-                oBall.dy = oBall.dy*1.1; 
+            iBrokenBricks++;
+            if (iBrokenBricks % 2 === 0){
+                oBall.dy = oBall.dy*1.1;
             }
 
-            if (iPoints === 5){
+            if (iBrokenBricks === 6){
                 clearInterval(iStart);
-                clearInterval(iGameTimer);
-                iPoints = 0;
+                clearInterval(iTotalTime);
+                $("#winScreenDiv p").text('You managed to finish the game in '+ iMin + ':' + iSec+'! Submit your name and see how you stand in the leaderboards!' );
                 $("#winScreenDiv").show();
 
                 // HTML5 Local storage - save values
                 localStorage.setItem('best-time', iMin + ':' + iSec);
-                console.log(bestTime);
                 clearCanvas();
             }
 
             //aSounds[0].play(); // play sound
         }
-     
+
         // when ball hits the sidewall, reverse X position of ball
         if (oBall.x + oBall.dx + oBall.r > ctx.canvas.width || oBall.x + oBall.dx - oBall.r < 0) {
             console.log('hit sidewall')
@@ -231,8 +228,7 @@
             else if (oBall.y + oBall.dy + oBall.r > ctx.canvas.height +10) {
                 console.log('Game Over') ;
                 clearInterval(iStart);
-                clearInterval(iGameTimer);
-                iPoints = 0;
+                clearInterval(iTotalTime);
                 clearCanvas();
                 $("#loseScreenDiv").show();
 
@@ -241,7 +237,7 @@
         }
     }
     function countTimer() {
-        iElapsed++;
+        iScoredTime++;
     }
 
     function introScreen(){
@@ -251,14 +247,30 @@
         });
     }
 
+    $("#submitHighscoreButton").click(function(){
+        if(iScoredTime !== ''){
+            var playerName = $('#nameInput').val();
+            console.log(playerName +" scored " + iScoredTime);
+            $('#nameInput').prop('disabled',true);
+            $('#submitHighscoreButton').prop('disabled',true);
+            $('#noNameText').hide();
+        }else{
+            $('#noNameText').show();
+        }
+
+    });
     $( ".restartGameButton" ).click(function() {
         /*$.post("https://api.scoreoid.com/v1/createScore", {api_key:"4fe408d16ed751b2504ef2c2e3f5a4ca61551a1d",game_id:"b93478f923",response:"json", username: 'Bobro', score: 357},
            function(response) {
              console.log(response);
            });*/
-          $("#loseScreenDiv").hide();
-          $("#winScreenDiv").hide();
-          initialise();
+        iBrokenBricks = 0;
+        iScoredTime = 0;
+        $('#nameInput').prop('disabled',false);
+        $('#submitHighscoreButton').prop('disabled',false);
+        $("#loseScreenDiv").hide();
+        $("#winScreenDiv").hide();
+        initialise();
     });
 
     introScreen();

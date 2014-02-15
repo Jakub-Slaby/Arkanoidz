@@ -12,7 +12,6 @@
     var iPoints = 0;
     var nBricks =0
 
-
     //functions for creating objects
     function Ball(x, y, dx, dy, r) {
         this.x = x;
@@ -52,7 +51,7 @@
 
         //creating objects
         oBall = new Ball(width / 2, 550, 0.5, -5, 10); // position x, position y, speed/angle x, speed/angle y, radius
-        oPadd = new Padd(width / 2, 120, 20, padImg); // position x, width ,height, image 
+        oPadd = new Padd(width / 2, 120, 20, padImg); // position x, width ,height, image
         oBricks = new Bricks((width / 6 -5) - 1, 20, 10, 6, 5); // width of a single brick, height of a single brick,number of bricks vertically, number of bricks horizontally, brick padding
 
         //filling bricks
@@ -84,7 +83,7 @@
         ctx.fillRect(0, 0, ctx.canvas.width, ctx.canvas.height);
     }
 
-    function drawScene() { 
+    function drawScene() {
         clearCanvas();
 
         // draw Ball
@@ -135,7 +134,7 @@
     }
 
     function allowKeyboardControl(){
-        
+
         document.onkeydown = function(event){ // keyboard-down alerts
             switch (event.keyCode) {
                 case 37: // 'Left' key
@@ -170,7 +169,7 @@
             oBall.dy = -oBall.dy;
             iPoints++;
             if (iPoints % 2 === 0){
-                oBall.dy = oBall.dy*1.1; 
+                oBall.dy = oBall.dy*1.1;
             }
 
             if (iPoints === 5){
@@ -181,7 +180,7 @@
             }
 
         }
-     
+
         // when ball hits the sidewall, reverse X position of ball
         if (oBall.x + oBall.dx + oBall.r > ctx.canvas.width || oBall.x + oBall.dx - oBall.r < 0) {
             console.log('hit sidewall')
