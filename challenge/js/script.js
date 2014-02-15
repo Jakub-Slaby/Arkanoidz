@@ -15,6 +15,7 @@
     var iScoredTime = iMin = iSec = 0;
     //variables saving last scored time and points
     var bestTime;
+    var playerName;
     //my vars
 
     //functions for creating objects
@@ -74,6 +75,7 @@
 
         // HTML5 Local storage - get values
         bestTime = localStorage.getItem('best-time');
+        playerName = localStorage.getItem('player-name');
 
         allowMouseControl();
         allowKeyboardControl();
@@ -196,6 +198,11 @@
                 clearInterval(iTotalTime);
                 $("#winScreenDiv p").text('You managed to finish the game in '+ iMin + ':' + iSec+'! Submit your name and see how you stand in the leaderboards!' );
                 $("#winScreenDiv").show();
+                $('#submitScoreZone').show();
+                if (playerName !== ''){
+                    $('#playerName').val(playerName);
+                }
+
 
                 // HTML5 Local storage - save values
                 localStorage.setItem('best-time', iMin + ':' + iSec);
@@ -248,17 +255,19 @@
     }
 
     $("#submitHighscoreButton").click(function(){
+        localStorage.setItem('saved-name', playerName);
         var trimmedInput = $.trim($("#nameInput").val());
         if( trimmedInput.length > 0){
-            var playerName = $('#nameInput').val();
+            playerName = $('#nameInput').val();
             console.log(playerName +" scored " + iScoredTime);
-            $.post("https://api.scoreoid.com/v1/createScore", {api_key:"4fe408d16ed751b2504ef2c2e3f5a4ca61551a1d",game_id:"b93478f923",response:"json", username: playerName, score: iScoredTime},
-           function(response) {
-             console.log(response);
-           });
-            $('#nameInput').prop('disabled',true);
-            $('#submitHighscoreButton').prop('disabled',true);
+            //submit score to scoreoid
+            $.post("https://api.scoreoid.com/v1/createScore", {api_key:"4fe408d16ed751b2504ef2c2e3f5a4ca61551a1d",game_id:"b93478f923", response:"json", username: playerName, score: iScoredTime, platform: 'challenge', difficulty: 1},
+                function(response) {
+                    console.log(response);
+                    getScores()
+            });
             $('#noNameText').hide();
+            $('#submitScoreZone').hide();
         }else{
             $('#noNameText').show();
         }
@@ -267,11 +276,18 @@
     $( ".restartGameButton" ).click(function() {
         iBrokenBricks = 0;
         iScoredTime = 0;
-        $('#nameInput').prop('disabled',false);
-        $('#submitHighscoreButton').prop('disabled',false);
+        //$('#nameInput').prop('disabled',false);
+        //$('#submitHighscoreButton').prop('disabled',false);
         $("#loseScreenDiv").hide();
         $("#winScreenDiv").hide();
         initialise();
     });
+
+    function getScores(){
+        $.post("https://api.scoreoid.com/v1/getScores", {api_key:"4fe408d16ed751b2504ef2c2e3f5a4ca61551a1d",game_id:"b93478f923", response:"json", limit: '10', order: 'asc', platform: 'challenge', difficulty: 1},
+            function(response) {
+            console.log(response);
+        });
+    }
 
     introScreen();

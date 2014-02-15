@@ -26,22 +26,7 @@ header h2{
     position:absolute;
     width:540px;
 }
-header a.stuts,a.stuts:visited{
-    border:none;
-    text-decoration:none;
-    color:#fcfcfc;
-    font-size:14px;
-    left:50%;
-    line-height:31px;
-    margin:23px 0 0 110px;
-    position:absolute;
-    top:0;
-}
-header .stuts span {
-    font-size:22px;
-    font-weight:bold;
-    margin-left:5px;
-}
+
 .container {
     margin: 20px auto;
     overflow: hidden;
@@ -119,6 +104,16 @@ header .stuts span {
     height: 2em;
     position:relative;
     margin:0 auto;
+}
+
+#submitScoreZone{
+    position: absolute;
+    top: 60%;
+}
+#wonGameButton{
+    position:absolute;
+    top:80%;
+    left:32%;
 }
 
 #startGameButton{

@@ -41,19 +41,20 @@
                     You lost! Would you like to try again?
                     </p>
                 </div>
-                <button class='restartGameButton'>Try Again</button>
+                <button class='restartGameButton' id="lostGameButton">Try Again</button>
             </div>
             <div id="winScreenDiv">
-                <div id="winScreenText">
-                    <p>
-                    You won! Submit your name and see how you stand in the leaderboards!
-                    </p>
+                <div id="submitScoreZone">
+                    <div id="winScreenText">
+                        <p>
+                        You won! Submit your name and see how you stand in the leaderboards!
+                        </p>
+                    </div>
+                    <div id="noNameText"> You forgot to insert your name!</div>
+                    <input type="text" id="nameInput" maxlength="10" placeholder="Insert Your Name"></input>
+                    <button id="submitHighscoreButton">Submit Highscore</button>
                 </div>
-                <div id="noNameText"> You forgot to insert your name!</div>
-                <input type="text" id="nameInput" maxlength="10" placeholder="Insert Your Name"></input>
-                <button id="submitHighscoreButton">Submit Highscore</button>
-                <br>
-                <button class='restartGameButton'>Try Again</button>
+                <button class='restartGameButton' id="wonGameButton">Try Again</button>
             </div>
             <canvas id="scene" width="600" height="600"></canvas>
         </div>
