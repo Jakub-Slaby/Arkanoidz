@@ -82,6 +82,15 @@ header .stuts span {
     background-color:black;
     text-align:center;
 }
+#winScreenDiv{
+    font-size: 120%;
+    height:600px;
+    z-index: :9999;
+    width:600px;
+    margin:auto;
+    background-color:black;
+    text-align:center;
+}
 
 #controlsInfo, #loseScreenText{
     width:340px;
@@ -89,6 +98,21 @@ header .stuts span {
     padding-top:40%;
 }
 
+#nameInput{
+    font-size: 150%;
+    padding: 0.25em;
+}
+
+#noNameText{
+    color:red;
+}
+#submitHighscoreButton{
+    font-size: 150%;
+    width:10em;
+    height: 2em;
+    position:relative;
+    margin:0 auto;
+}
 #startGameButton, .restartGameButton{
     font-size: 150%;
     width:10em;
@@ -99,4 +123,8 @@ header .stuts span {
 
 #startGameButton{
     margin-top:1em;
+}
+
+button:hover{
+    cursor:pointer;
 }
