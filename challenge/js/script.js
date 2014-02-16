@@ -268,6 +268,7 @@
             });
             $('#noNameText').hide();
             $('#submitScoreZone').hide();
+            $('#leaderboardsBox').show();
         }else{
             $('#noNameText').show();
         }
@@ -280,14 +281,20 @@
         //$('#submitHighscoreButton').prop('disabled',false);
         $("#loseScreenDiv").hide();
         $("#winScreenDiv").hide();
+        $('#leaderboardsBox').hide();
         initialise();
     });
 
     function getScores(){
-        $.post("https://api.scoreoid.com/v1/getScores", {api_key:"4fe408d16ed751b2504ef2c2e3f5a4ca61551a1d",game_id:"b93478f923", response:"json", limit: '10', order: 'asc', platform: 'challenge', difficulty: 1},
+        $.post("https://api.scoreoid.com/v1/getScores", {api_key:"4fe408d16ed751b2504ef2c2e3f5a4ca61551a1d",game_id:"b93478f923", order_by : 'score', response:"json", limit: '5', order: 'asc', platform: 'challenge', difficulty: 1},
             function(response) {
-            console.log(response);
+                console.log(response);
+                var source = $("#leaderboards").html();
+                var template = Handlebars.compile(source);
+                var wrapper = {playerData: response}
+                $('#leaderboardsBox').html(template(wrapper));
         });
     }
 
     introScreen();
+

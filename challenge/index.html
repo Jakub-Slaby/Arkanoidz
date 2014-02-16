@@ -54,10 +54,26 @@
                     <input type="text" id="nameInput" maxlength="10" placeholder="Insert Your Name"></input>
                     <button id="submitHighscoreButton">Submit Highscore</button>
                 </div>
+                <div id="leaderboardsBox"></div>
+                <script id="leaderboards" type="text/x-handlebars-template">
+                <table>
+                    <tr>
+                        <th>Player</th>
+                        <th>Finished in</th>
+                    </tr>
+                    {{#each playerData}}
+                        <tr>
+                            <td class="playerName">{{Player.username}}</td>
+                            <td class="playerScore">{{Score.score}} seconds</td>
+                        </tr>
+                    {{/each}}
+                </table>
+                </script>
                 <button class='restartGameButton' id="wonGameButton">Try Again</button>
             </div>
             <canvas id="scene" width="600" height="600"></canvas>
         </div>
     </body>
+    <script src="js/handlebars.js"></script>
     <script src="js/script.js"></script>
 </html>

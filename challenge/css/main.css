@@ -108,7 +108,26 @@ header h2{
 
 #submitScoreZone{
     position: absolute;
-    top: 60%;
+    top: 40%;
+}
+
+#leaderboardsBox{
+    display:none;
+    margin-top: 3em;
+    margin-left:auto;
+    margin-right: auto;
+    font-size: 1.5em;
+}
+#leaderboardsBox table{
+    margin:auto;
+}
+td,th{
+    padding: 0.3em;
+    padding-left: 1em;
+    text-align: left;
+}
+.playerScore{
+    text-align: right;
 }
 #wonGameButton{
     position:absolute;
