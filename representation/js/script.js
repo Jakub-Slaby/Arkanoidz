@@ -18,7 +18,7 @@
         this.x = x;
         this.y = y;
         this.dx = dx;
-        this.dy = dy;
+        this.dy = 0;
         this.r = r;
     }
     function Padd(x, w, h, img) {

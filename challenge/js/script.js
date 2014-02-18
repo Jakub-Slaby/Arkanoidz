@@ -275,6 +275,7 @@
 
     });
     $( ".restartGameButton" ).click(function() {
+        shareScoreOnFB(500);
         iBrokenBricks = 0;
         iScoredTime = 0;
         //$('#nameInput').prop('disabled',false);
@@ -294,6 +295,26 @@
                 var wrapper = {playerData: response}
                 $('#leaderboardsBox').html(template(wrapper));
         });
+    }
+    function shareScoreOnFB(score){
+       FB.ui(
+   {
+     method: 'feed',
+     name: 'Arkanoidz',
+     link: 'http://jakubs.eu/test/challenge',
+     picture: 'http://jakubs.eu/test/arkimg.PNG',
+     caption: 'I managed to finish Arkanoidz in '+score+ 'seconds, can you beat that?',
+     description: 'Arkanoidz is an experimental game designed by Jakub Slaby as a part of his Honours project at Edinburgh Napier University',
+     message: ''
+   },
+   function(response) {
+     if (response && response.post_id) {
+       //add code to add a facebook share
+     } else {
+       //do nothing
+     }
+   }
+);
     }
 
     introScreen();
