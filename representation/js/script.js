@@ -34,7 +34,7 @@
         this.c = c; // cols
         this.p = p; // padding
         this.objs;
-    	var redGradient = ctx.createLinearGradient(54.000, 0.000, 246.000, 300.000);
+    	/*var redGradient = ctx.createLinearGradient(54.000, 0.000, 246.000, 300.000);
     	var yellowGradient = ctx.createLinearGradient(54.000, 0.000, 246.000, 300.000);;
     	var blueGradient = ctx.createLinearGradient(54.000, 0.000, 246.000, 300.000);
     	var pinkGradient = ctx.createLinearGradient(54.000, 0.000, 246.000, 300.000);
@@ -48,20 +48,25 @@
 			pinkGradient.addColorStop(1, 'rgba(127, 0, 255, 1.000)');
 			pinkGradient.addColorStop(0, 'rgba(247, 4, 247, 1.000)');
 			greenGradient.addColorStop(0, 'rgba(69, 173, 119, 1.000)');
-			greenGradient.addColorStop(1,'rgba(127, 255, 0, 1.000)');
-		this.colors = [redGradient, yellowGradient, blueGradient, pinkGradient, greenGradient]; // colors for rows
+			greenGradient.addColorStop(1,'rgba(127, 255, 0, 1.000)');*/
+        var white1 = 'rgba(255,255,255, 0.9)';
+        var white2 = 'rgba(255,255,255, 0.8)';
+        var white3 = 'rgba(255,255,255, 0.7)';
+        var white4 = 'rgba(255,255,255, 0.6)';
+        var white5 = 'rgba(255,255,255, 0.5)';
+		this.colors = [white1, white2, white3, white4, white5]; // colors for rows
     }
 
     function loadAudio(){
     	bgMusic = new Audio('media/the-first-light_Mike_Rowa.mp3');
-	    bgMusic.volume = 0.9;
+	    bgMusic.volume = 0.1;
 	    bgMusic.loop = true;
 	    aSounds[0] = new Audio('media/snd1.wav');
-	    aSounds[0].volume = 0.9;
+	    aSounds[0].volume = 0.1;
 	    aSounds[1] = new Audio('media/snd2.wav');
-	    aSounds[1].volume = 0.9;
+	    aSounds[1].volume = 0.1;
 	    aSounds[2] = new Audio('media/snd3.wav');
-	    aSounds[2].volume = 0.9;
+	    aSounds[2].volume = 0.1;
 	    bgMusic.play();
     }
 
@@ -80,7 +85,7 @@
 
         //creating objects
         oBall = new Ball(width / 2, 550, 0.5, -5, 10); // position x, position y, speed/angle x, speed/angle y, radius
-        oPadd = new Padd(width / 2, 120, 20, padImg); // position x, width ,height, image 
+        oPadd = new Padd(width / 2, 120, 20, padImg); // position x, width ,height, image
         oBricks = new Bricks((width / 6 -5) - 1, 20, 5, 6, 5); // width of a single brick, height of a single brick,number of bricks vertically, number of bricks horizontally, brick padding
 
         //filling bricks
@@ -114,11 +119,11 @@
        // ctx.fillRect(0, 0, ctx.canvas.width, ctx.canvas.height);
     }
 
-    function drawScene() { 
+    function drawScene() {
         clearCanvas();
 
         // draw Ball
-		ctx.fillStyle = '#ced2e2';
+		ctx.fillStyle = '#ECF0F1';
         ctx.beginPath();
         ctx.arc(oBall.x, oBall.y, oBall.r, 0, Math.PI * 2, true);
         ctx.closePath();
@@ -165,7 +170,7 @@
     }
 
     function allowKeyboardControl(){
-        
+
         document.onkeydown = function(event){ // keyboard-down alerts
             switch (event.keyCode) {
                 case 37: // 'Left' key
@@ -200,7 +205,7 @@
             oBall.dy = -oBall.dy;
             iPoints++;
             if (iPoints % 2 === 0){
-                oBall.dy = oBall.dy*1.1; 
+                oBall.dy = oBall.dy*1.1;
             }
 
             if (iPoints === 5){
@@ -212,7 +217,7 @@
 
             aSounds[0].play(); // play sound
         }
-     
+
         // when ball hits the sidewall, reverse X position of ball
         if (oBall.x + oBall.dx + oBall.r > ctx.canvas.width || oBall.x + oBall.dx - oBall.r < 0) {
             console.log('hit sidewall')
