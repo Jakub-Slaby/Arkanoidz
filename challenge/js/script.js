@@ -275,7 +275,6 @@
 
     });
     $( ".restartGameButton" ).click(function() {
-        shareScoreOnFB(500);
         iBrokenBricks = 0;
         iScoredTime = 0;
         //$('#nameInput').prop('disabled',false);
