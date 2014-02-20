@@ -34,6 +34,7 @@ header h2{
     width: 600px;
 }
 #scene{
+    display:none;
     cursor:none;
 }
 
@@ -77,6 +78,11 @@ header h2{
     text-align:center;
 }
 
+#winScreenText{
+    width:320px;
+    margin:auto;
+    margin-bottom: 1.2em;
+}
 #controlsInfo, #loseScreenText{
     width:340px;
     margin:auto;
@@ -108,7 +114,8 @@ header h2{
 
 #submitScoreZone{
     position: absolute;
-    top: 40%;
+    top: 34%;
+    left: 4%;
 }
 
 #leaderboardsBox{
@@ -131,7 +138,7 @@ td,th{
 }
 #wonGameButton{
     position:absolute;
-    top:80%;
+    top:60%;
     left:31%;
 }
 
@@ -143,5 +150,10 @@ button:hover{
     cursor:pointer;
 }
 #fbShareButton{
-
+    position: absolute;
+    top: 84%;
+    left: 42%;
 }
+#fbShareButton:hover{
+    cursor:pointer;
+};

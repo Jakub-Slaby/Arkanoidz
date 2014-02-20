@@ -47,6 +47,7 @@
         //canvas
         canvas = document.getElementById('scene');
         ctx = canvas.getContext('2d');
+        $('#scene').show();
 
         width = canvas.width;
         height = canvas.height;
@@ -138,7 +139,7 @@
         ctx.fillText('Time: ' + iMin + ':' + iSec, 400, 520);
         //previous stats
         if (bestTime != null) {
-            ctx.fillText('Best Time: ' + bestTime, 400, 500);
+            ctx.fillText('Your best: ' + bestTime, 400, 500);
         }
         collisionDetection();
     }
@@ -193,9 +194,10 @@
                 oBall.dy = oBall.dy*1.1;
             }
 
-            if (iBrokenBricks === 6){
+            if (iBrokenBricks === 1){
                 clearInterval(iStart);
                 clearInterval(iTotalTime);
+                $('#fbShareButton').click(shareScoreOnFB(iMin + ':' + iSec));
                 $("#winScreenDiv p").text('You managed to finish the game in '+ iMin + ':' + iSec+'! Submit your name and see how you stand in the leaderboards!' );
                 $("#winScreenDiv").show();
                 $('#submitScoreZone').show();
@@ -237,6 +239,7 @@
                 clearInterval(iStart);
                 clearInterval(iTotalTime);
                 clearCanvas();
+
                 $("#loseScreenDiv").show();
 
                // aSounds[1].play(); // play sound
@@ -295,6 +298,8 @@
                 $('#leaderboardsBox').html(template(wrapper));
         });
     }
+
+
     function shareScoreOnFB(score){
        FB.ui(
    {
@@ -302,8 +307,8 @@
      name: 'Arkanoidz',
      link: 'http://jakubs.eu/test/challenge',
      picture: 'http://jakubs.eu/test/arkimg.PNG',
-     caption: 'I managed to finish Arkanoidz in '+score+ 'seconds, can you beat that?',
-     description: 'Arkanoidz is an experimental game designed by Jakub Slaby as a part of his Honours project at Edinburgh Napier University',
+     caption: 'I managed to finish Arkanoidz in '+score+' seconds, can you beat that?',
+     description: 'Arkanoidz is an experimental game designed by Jakub Slaby as a part of his Honours project at the Edinburgh Napier University',
      message: ''
    },
    function(response) {

@@ -1,20 +1,8 @@
 <!DOCTYPE html>
 <html lang="en" >
     <head>
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
         <!-- Google Analytics Content Experiment code -->
-        <script>function utmx_section(){}function utmx(){}(function(){var
-        k='58039009-0',d=document,l=d.location,c=d.cookie;
-        if(l.search.indexOf('utm_expid='+k)>0)return;
-        function f(n){if(c){var i=c.indexOf(n+'=');if(i>-1){var j=c.
-        indexOf(';',i);return escape(c.substring(i+n.length+1,j<0?c.
-        length:j))}}}var x=f('__utmx'),xx=f('__utmxx'),h=l.hash;d.write(
-        '<sc'+'ript src="'+'http'+(l.protocol=='https:'?'s://ssl':
-        '://www')+'.google-analytics.com/ga_exp.js?'+'utmxkey='+k+
-        '&utmx='+(x?x:'')+'&utmxx='+(xx?xx:'')+'&utmxtime='+new Date().
-        valueOf()+(h?'&utmxhash='+escape(h.substr(1)):'')+
-        '" type="text/javascript" charset="utf-8"><\/sc'+'ript>')})();
-        </script><script>utmx('url','A/B');</script>
-
         <script type="text/javascript">
 
           var _gaq = _gaq || [];
@@ -29,18 +17,59 @@
 
         </script>
         <!-- End of Google Analytics Content Experiment code -->
-
         <meta charset="utf-8" />
-        <title>Basic Arkanoid</title>
+        <title>Arkanoid Challenge</title>
         <link href="css/main.css" rel="stylesheet" type="text/css" />
+
     </head>
     <body>
+    <div id="fb-root"></div>
+<script>
+  window.fbAsyncInit = function() {
+  FB.init({appId: '397401780403890', status: true, cookie: true,
+         xfbml: true});
+};
+(function() {
+    var e = document.createElement('script'); e.async = true;
+    e.src = document.location.protocol +
+      '//connect.facebook.net/en_US/all.js';
+    document.getElementById('fb-root').appendChild(e);
+}());
+</script>
         <header>
-            <h2>Vanilla Arkanoid</h2>
+            <h2>Challenge Arkanoid</h2>
         </header>
         <div class="container">
-            <canvas id="scene" width="800" height="600"></canvas>
+            <div id="introScreenDiv">
+                <div id="controlsInfo">
+                    <p>
+                    This came game can be controlled with the left and right arrow keys or your mouse. Please press the button below to start.
+                    </p>
+                </div>
+                <button id='startGameButton'>Start Game</button>
+            </div>
+             <div id="loseScreenDiv">
+                <div id="loseScreenText">
+                    <p>
+                    You lost! Would you like to try again?
+                    </p>
+                </div>
+                <button class='restartGameButton' id="lostGameButton">Try Again</button>
+            </div>
+            <div id="winScreenDiv">
+                <div id="submitScoreZone">
+                    <div id="winScreenText">
+                        <p>
+                        You won! Congratulations!
+                        </p>
+                    </div>
+                </div>
+                <img src="images/fbShare.png" id="fbShareButton">
+                <button class='restartGameButton' id="wonGameButton">Try Again</button>
+            </div>
+            <canvas id="scene" width="600" height="600"></canvas>
         </div>
     </body>
+    <script src="js/handlebars.js"></script>
     <script src="js/script.js"></script>
 </html>
