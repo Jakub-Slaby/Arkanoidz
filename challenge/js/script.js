@@ -194,7 +194,7 @@
                 oBall.dy = oBall.dy*1.1;
             }
 
-            if (iBrokenBricks === 1){
+            if (iBrokenBricks === 3){
                 clearInterval(iStart);
                 clearInterval(iTotalTime);
                 $('#fbShareButton').click(shareScoreOnFB(iMin + ':' + iSec));

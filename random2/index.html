@@ -18,24 +18,14 @@
         </script>
         <!-- End of Google Analytics Content Experiment code -->
         <meta charset="utf-8" />
-        <title>Arkanoidz</title>
+        <title>Arkanoid Challenge</title>
         <link href="css/main.css" rel="stylesheet" type="text/css" />
 
-    </head>
+    </head> 
     <body>
-    <div id="fb-root"></div>
-<script>
-  window.fbAsyncInit = function() {
-  FB.init({appId: '397401780403890', status: true, cookie: true,
-         xfbml: true});
-};
-(function() {
-    var e = document.createElement('script'); e.async = true;
-    e.src = document.location.protocol +
-      '//connect.facebook.net/en_US/all.js';
-    document.getElementById('fb-root').appendChild(e);
-}());
-</script>
+        <header>
+            <h2>Random Arkanoid</h2>
+        </header>
         <div class="container">
             <div id="introScreenDiv">
                 <div id="controlsInfo">
@@ -51,18 +41,15 @@
                     You lost! Would you like to try again?
                     </p>
                 </div>
-                <button class='restartGameButton' id="lostGameButton">Try Again</button>
+                <button class='restartGameButton'>Try Again</button>
             </div>
             <div id="winScreenDiv">
-                <div id="submitScoreZone">
-                    <div id="winScreenText">
-                        <p>
-                        You won! Congratulations!
-                        </p>
-                    </div>
+                <div id="winScreenText">
+                    <p>
+                    You won! Would you like to try again?
+                    </p>
                 </div>
-                <img src="images/fbShare.png" id="fbShareButton">
-                <button class='restartGameButton' id="wonGameButton">Try Again</button>
+                <button class='restartGameButton'>Try Again</button>
             </div>
             <canvas id="scene" width="600" height="600"></canvas>
         </div>

@@ -9,14 +9,8 @@
     //sound array
     var aSounds = [];
     //scored points
-    var iBrokenBricks = 0;
-    var iTotalTime;
-    //elapsed time
-    var iScoredTime = iMin = iSec = 0;
-    //variables saving last scored time and points
-    var bestTime;
-    var nBricks = 0;
-    //my vars
+    var iPoints = 0;
+    var nBricks =0
 
     //functions for creating objects
     function Ball(x, y, dx, dy, r) {
@@ -39,16 +33,14 @@
         this.c = c; // cols
         this.p = p; // padding
         this.objs;
-        this.colors = ['white']; // colors for rows
+    	this.colors = ['white']; // colors for rows
     }
-
 
     function initialise(){
         //canvas
         canvas = document.getElementById('scene');
         ctx = canvas.getContext('2d');
-        $('#scene').show();
-
+        nBricks = 0;
         width = canvas.width;
         height = canvas.height;
 
@@ -79,11 +71,6 @@
         console.log(nBricks);
 
         iStart = setInterval(drawScene, 10); // loop drawScene
-        iTotalTime = setInterval(countTimer, 1000); // inner game timer
-
-        // HTML5 Local storage - get values
-        bestTime = localStorage.getItem('best-time');
-        playerName = localStorage.getItem('player-name');
 
         allowMouseControl();
         allowKeyboardControl();
@@ -100,7 +87,7 @@
         clearCanvas();
 
         // draw Ball
-        ctx.fillStyle = 'white';
+		ctx.fillStyle = 'white';
         ctx.beginPath();
         ctx.arc(oBall.x, oBall.y, oBall.r, 0, Math.PI * 2, true);
         ctx.closePath();
@@ -131,16 +118,6 @@
 
         oBall.x += oBall.dx;
         oBall.y += oBall.dy;
-
-        // Drawing text for time and points
-        ctx.font = '16px Verdana';
-        ctx.fillStyle = '#fff';
-
-        //minutes and seconds
-        iMin = Math.floor(iScoredTime / 60);
-        iSec = iScoredTime % 60;
-        if (iMin < 10) iMin = "0" + iMin;
-        if (iSec < 10) iSec = "0" + iSec;
 
         collisionDetection();
     }
@@ -190,26 +167,18 @@
         if (oBall.y < oBricks.r * iRowH && iRow >= 0 && iCol >= 0 && oBricks.objs[iRow][iCol] == 1) {
             oBricks.objs[iRow][iCol] = 0;
             oBall.dy = -oBall.dy;
-            iBrokenBricks++;
-
-            if (iBrokenBricks === 3){
-                clearInterval(iStart);
-                clearInterval(iTotalTime);
-                $('#fbShareButton').click(shareScoreOnFB(iMin + ':' + iSec));
-                $("#winScreenDiv p").text('You won! Congratulations!' );
-                $("#winScreenDiv").show();
-                $('#submitScoreZone').show();
-                if (playerName !== ''){
-                    $('#playerName').val(playerName);
-                }
-
-
-                // HTML5 Local storage - save values
-                localStorage.setItem('best-time', iMin + ':' + iSec);
-                clearCanvas();
+            iPoints++;
+            if (iPoints % 2 === 0){
+                oBall.dy = oBall.dy*1.1;
             }
 
-            //aSounds[0].play(); // play sound
+            if (iPoints === 5){
+            	clearInterval(iStart);
+                iPoints = 0;
+                $("#winScreenDiv").show();
+           		clearCanvas();
+            }
+
         }
 
         // when ball hits the sidewall, reverse X position of ball
@@ -219,7 +188,7 @@
         }
 
         if (oBall.y + oBall.dy - oBall.r < 0) {
-            console.log('dunno what this does');
+            console.log('hit the very top');
             oBall.dy = -oBall.dy;
 
         //if ball hits the PAD, reverse in angle
@@ -229,23 +198,17 @@
                 oBall.dx = 10 * ((oBall.x-(oPadd.x+oPadd.w/2))/oPadd.w);
                 oBall.dy = -oBall.dy;
 
-               // aSounds[2].play(); // play sound
             }
             //if ball hits the very ground GAME OVER
             else if (oBall.y + oBall.dy + oBall.r > ctx.canvas.height +10) {
-                console.log('Game Over') ;
+                console.log('Game Over');
                 clearInterval(iStart);
-                clearInterval(iTotalTime);
+                iPoints = 0;
                 clearCanvas();
-
                 $("#loseScreenDiv").show();
 
-               // aSounds[1].play(); // play sound
             }
         }
-    }
-    function countTimer() {
-        iScoredTime++;
     }
 
     function introScreen(){
@@ -255,58 +218,14 @@
         });
     }
 
-    $("#submitHighscoreButton").click(function(){
-        localStorage.setItem('saved-name', playerName);
-        var trimmedInput = $.trim($("#nameInput").val());
-        if( trimmedInput.length > 0){
-            playerName = $('#nameInput').val();
-            console.log(playerName +" scored " + iScoredTime);
-            //submit score to scoreoid
-            $.post("https://api.scoreoid.com/v1/createScore", {api_key:"4fe408d16ed751b2504ef2c2e3f5a4ca61551a1d",game_id:"b93478f923", response:"json", username: playerName, score: iScoredTime, platform: 'vanilla', difficulty: 0},
-                function(response) {
-                    console.log(response);
-            });
-            $('#noNameText').hide();
-            $('#submitScoreZone').hide();
-            $('#leaderboardsBox').show();
-        }else{
-            $('#noNameText').show();
-        }
-
-    });
     $( ".restartGameButton" ).click(function() {
-        iBrokenBricks = 0;
-        nBricks = 0;
-        iScoredTime = 0;
-        //$('#nameInput').prop('disabled',false);
-        //$('#submitHighscoreButton').prop('disabled',false);
-        $("#loseScreenDiv").hide();
-        $("#winScreenDiv").hide();
-        $('#leaderboardsBox').hide();
-        initialise();
+        /*$.post("https://api.scoreoid.com/v1/createScore", {api_key:"4fe408d16ed751b2504ef2c2e3f5a4ca61551a1d",game_id:"b93478f923",response:"json", username: 'Bobro', score: 357},
+           function(response) {
+             console.log(response);
+           });*/
+          $("#loseScreenDiv").hide();
+          $("#winScreenDiv").hide();
+          initialise();
     });
-
-
-    function shareScoreOnFB(score){
-       FB.ui(
-   {
-     method: 'feed',
-     name: 'Arkanoidz',
-     link: 'http://jakubs.eu/test/challenge',
-     picture: 'http://jakubs.eu/test/arkimg.PNG',
-     caption: 'I managed to beat Arkanoidz! Can you?',
-     description: 'Arkanoidz is an experimental game designed by Jakub Slaby as a part of his Honours project at the Edinburgh Napier University',
-     message: ''
-   },
-   function(response) {
-     if (response && response.post_id) {
-       //add code to add a facebook share
-     } else {
-       //do nothing
-     }
-   }
-);
-    }
 
     introScreen();
-

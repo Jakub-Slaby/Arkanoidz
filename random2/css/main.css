@@ -46,5 +46,53 @@ header .stuts span {
     margin: 20px auto;
     overflow: hidden;
     position: relative;
-    width: 800px;
+    width: 600px;
+}
+#scene{
+    cursor:none;
+}
+
+#loseScreenDiv, #winScreenDiv{
+    position:absolute;
+    display:none;
+    margin:auto;
+    text-align:center;
+}
+
+#introScreenDiv{
+    font-size: 120%;
+    height:600px;
+    z-index: :9999;
+    width:600px;
+    margin:auto;
+    background-color:black;
+    text-align:center;
+}
+
+#loseScreenDiv{
+    font-size: 120%;
+    height:600px;
+    z-index: :9999;
+    width:600px;
+    margin:auto;
+    background-color:black;
+    text-align:center;
+}
+
+#controlsInfo, #loseScreenText{
+    width:340px;
+    margin:auto;
+    padding-top:40%;
+}
+
+#startGameButton, .restartGameButton{
+    font-size: 150%;
+    width:10em;
+    height: 2em;
+    position:relative;
+    margin:0 auto;
+}
+
+#startGameButton{
+    margin-top:1em;
 }
