@@ -194,7 +194,7 @@
                 oBall.dy = oBall.dy*1.08;
             }
 
-            if (iBrokenBricks === 3){
+            if (iBrokenBricks === 30){
                 clearInterval(iStart);
                 clearInterval(iTotalTime);
                 addCompletedToScoreoid();
@@ -204,7 +204,6 @@
                 if (playerName !== ''){
                     $('#playerName').val(playerName);
                 };
-                //$('#fbShareButton').click(shareScoreOnFB(iMin + ':' + iSec));
 
                 // HTML5 Local storage - save values
                 localStorage.setItem('best-time', iMin + ':' + iSec);
@@ -324,6 +323,9 @@
         );
     }
 
+    $( "#fbShareButton" ).click(function() {
+        shareScoreOnFB(iMin + ':' + iSec);
+    });
 
     function shareScoreOnFB(score){
                 console.log('test');

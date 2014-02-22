@@ -254,7 +254,6 @@
                 clearInterval(iStart);
                 clearInterval(iTotalTime);
                 addCompletedToScoreoid();
-                $('#fbShareButton').click(shareScoreOnFB(iMin + ':' + iSec));
                 $("#winScreenDiv p").text('You managed to finish the game in '+ iMin + ':' + iSec+'! Submit your name and see how you stand in the leaderboards!' );
                 $("#winScreenDiv").show();
                 $('#submitScoreZone').show();
@@ -383,7 +382,10 @@
         );
     }
 
-
+    $( "#fbShareButton" ).click(function() {
+        shareScoreOnFB(iMin + ':' + iSec)
+    });
+    
     function shareScoreOnFB(score){
        FB.ui(
    {

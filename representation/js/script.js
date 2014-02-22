@@ -207,7 +207,6 @@
                 clearInterval(iStart);
                 clearInterval(iTotalTime);
                 addCompletedToScoreoid();
-                $('#fbShareButton').click(shareScoreOnFB(iMin + ':' + iSec));
                 $("#winScreenDiv p").text('You won! Congratulations!' );
                 $("#winScreenDiv").show();
                 $('#submitScoreZone').show();
@@ -318,6 +317,10 @@
             }
         );
     }
+
+    $( "#fbShareButton" ).click(function() {
+        shareScoreOnFB(iMin + ':' + iSec);
+    });
 
     function shareScoreOnFB(score){
        FB.ui(
