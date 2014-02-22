@@ -41,11 +41,11 @@
         this.p = p; // padding
         this.objs;
         var white1 = 'rgba(255,255,255, 0.9)';
-        var white2 = 'rgba(255,255,255, 0.8)';
-        var white3 = 'rgba(255,255,255, 0.7)';
-        var white4 = 'rgba(255,255,255, 0.6)';
-        var white5 = 'rgba(255,255,255, 0.5)';
-        this.colors = [white1, white2, white3, white4, white5]; // colors for rows
+        var white2 = 'rgba(255,255,255, 0.78)';
+        var white3 = 'rgba(255,255,255, 0.66)';
+        var white4 = 'rgba(255,255,255, 0.54)';
+        var white5 = 'rgba(255,255,255, 0.42)';
+        this.colors = [white1, white1, white2, white2, white3, white3, white4, white4, white5, white5]; // colors for rows
     }
 
     function loadAudio(){
@@ -79,7 +79,7 @@
         //creating objects
         oBall = new Ball(width / 2, 550, 0.5, -5, 10); // position x, position y, speed/angle x, speed/angle y, radius
         oPadd = new Padd(width / 2, 120, 20, padImg); // position x, width ,height, image
-        oBricks = new Bricks((width / 6 -5) - 1, 20, 5, 6, 5); // width of a single brick, height of a single brick,number of bricks vertically, number of bricks horizontally, brick padding
+        oBricks = new Bricks((width / 6 -5) - 1, 20, 10, 6, 5); // width of a single brick, height of a single brick,number of bricks vertically, number of bricks horizontally, brick padding
 
          //filling bricks
         oBricks.objs = new Array(oBricks.r);
@@ -95,6 +95,18 @@
                 }
             }
         }
+
+        if (nBricks < 30){
+            for (i=0; i < oBricks.r; i++) {
+                for (j=0; j < oBricks.c; j++) {
+                     if (nBricks < 30 && oBricks.objs[i][j] == 0 && (Math.random() < 0.5) == true){
+                        oBricks.objs[i][j] = 1;
+                        nBricks++
+                     }
+                 }
+            }
+        }
+
         console.log(nBricks);
 
         iStart = setInterval(drawScene, 10); // loop drawScene
@@ -302,6 +314,7 @@
     });
     $( ".restartGameButton" ).click(function() {
         iBrokenBricks = 0;
+        nBricks = 0;
         iScoredTime = 0;
         //$('#nameInput').prop('disabled',false);
         //$('#submitHighscoreButton').prop('disabled',false);
