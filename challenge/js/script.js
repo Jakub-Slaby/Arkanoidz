@@ -190,21 +190,21 @@
             oBricks.objs[iRow][iCol] = 0;
             oBall.dy = -oBall.dy;
             iBrokenBricks++;
-            if (iBrokenBricks % 2 === 0){
-                oBall.dy = oBall.dy*1.1;
+            if (iBrokenBricks % 2 === 30){
+                oBall.dy = oBall.dy*1.08;
             }
 
             if (iBrokenBricks === 3){
                 clearInterval(iStart);
                 clearInterval(iTotalTime);
-                $('#fbShareButton').click(shareScoreOnFB(iMin + ':' + iSec));
+                addCompletedToScoreoid();
                 $("#winScreenDiv p").text('You managed to finish the game in '+ iMin + ':' + iSec+'! Submit your name and see how you stand in the leaderboards!' );
                 $("#winScreenDiv").show();
                 $('#submitScoreZone').show();
                 if (playerName !== ''){
                     $('#playerName').val(playerName);
-                }
-
+                };
+                //$('#fbShareButton').click(shareScoreOnFB(iMin + ':' + iSec));
 
                 // HTML5 Local storage - save values
                 localStorage.setItem('best-time', iMin + ':' + iSec);
@@ -216,17 +216,14 @@
 
         // when ball hits the sidewall, reverse X position of ball
         if (oBall.x + oBall.dx + oBall.r > ctx.canvas.width || oBall.x + oBall.dx - oBall.r < 0) {
-            console.log('hit sidewall')
             oBall.dx = -oBall.dx;
         }
 
         if (oBall.y + oBall.dy - oBall.r < 0) {
-            console.log('dunno what this does');
             oBall.dy = -oBall.dy;
 
         //if ball hits the PAD, reverse in angle
         } else if (oBall.y + oBall.dy + oBall.r > ctx.canvas.height - 25) {
-            console.log('hit the pad');
             if (oBall.x > oPadd.x && oBall.x < oPadd.x + oPadd.w) {
                 oBall.dx = 10 * ((oBall.x-(oPadd.x+oPadd.w/2))/oPadd.w);
                 oBall.dy = -oBall.dy;
@@ -235,7 +232,6 @@
             }
             //if ball hits the very ground GAME OVER
             else if (oBall.y + oBall.dy + oBall.r > ctx.canvas.height +10) {
-                console.log('Game Over') ;
                 clearInterval(iStart);
                 clearInterval(iTotalTime);
                 clearCanvas();
@@ -285,6 +281,7 @@
         $("#loseScreenDiv").hide();
         $("#winScreenDiv").hide();
         $('#leaderboardsBox').hide();
+        addRestartToScoreoid();
         initialise();
     });
 
@@ -299,8 +296,37 @@
         });
     }
 
+    function addRestartToScoreoid(){
+            $.post(" https://api.scoreoid.com/v1/getGameData", {api_key:"4fe408d16ed751b2504ef2c2e3f5a4ca61551a1d",game_id:"b93478f923", response:"json", key: 'challengeData'},
+            function(response) {
+                console.log(response.challengeData.nRestarts);
+                var newValue = parseInt(response.challengeData.nRestarts)+1;
+                $.post(" https://api.scoreoid.com/v1/setGameData", {api_key:"4fe408d16ed751b2504ef2c2e3f5a4ca61551a1d",game_id:"b93478f923", response:"json", key: 'challengeData.nRestarts', value: newValue},
+                    function(response) {
+                        console.log(response);
+                    }
+                );
+            }
+        );
+    }
+
+    function addCompletedToScoreoid(){
+        $.post(" https://api.scoreoid.com/v1/getGameData", {api_key:"4fe408d16ed751b2504ef2c2e3f5a4ca61551a1d",game_id:"b93478f923", response:"json", key: 'challengeData'},
+            function(response) {
+                console.log(response.challengeData.nCompleted);
+                var newValue = parseInt(response.challengeData.nCompleted)+1;
+                $.post(" https://api.scoreoid.com/v1/setGameData", {api_key:"4fe408d16ed751b2504ef2c2e3f5a4ca61551a1d",game_id:"b93478f923", response:"json", key: 'challengeData.nCompleted', value: newValue},
+                    function(response) {
+                        console.log(response);
+                    }
+                );
+            }
+        );
+    }
+
 
     function shareScoreOnFB(score){
+                console.log('test');
        FB.ui(
    {
      method: 'feed',
@@ -313,7 +339,17 @@
    },
    function(response) {
      if (response && response.post_id) {
-       //add code to add a facebook share
+       $.post(" https://api.scoreoid.com/v1/getGameData", {api_key:"4fe408d16ed751b2504ef2c2e3f5a4ca61551a1d",game_id:"b93478f923", response:"json", key: 'challengeData'},
+            function(response) {
+                console.log(response.challengeData.nFBShares);
+                var newValue = parseInt(response.challengeData.nFBShares)+1;
+                $.post(" https://api.scoreoid.com/v1/setGameData", {api_key:"4fe408d16ed751b2504ef2c2e3f5a4ca61551a1d",game_id:"b93478f923", response:"json", key: 'challengeData.nFBShares', value: newValue},
+                    function(response) {
+                        console.log(response);
+                    }
+                );
+            }
+        );
      } else {
        //do nothing
      }

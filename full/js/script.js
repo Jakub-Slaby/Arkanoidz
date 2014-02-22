@@ -17,7 +17,25 @@
     var bestTime;
     var playerName;
     var nBricks = 0;
-    //my vars
+    //analytics vars
+    /*
+    var nVanillaCompleted;
+    var nChallengeCompleted;
+    var nRandomCompleted;
+    var nRepresentationCompleted;
+    var nFullCompleted;
+
+    var nVanillaRestarts;
+    var nChallengeRestarts;
+    var nRandomRestarts;
+    var nRepresentationRestarts;
+    var nFullRestarts;
+
+    var nVanillaFBShares;
+    var nChallengeFBShares;
+    var nRandomFBShares;
+    var nRepresentationFBShares;
+    var nFullFBShares;*/
 
     //functions for creating objects
     function Ball(x, y, dx, dy, r) {
@@ -229,12 +247,13 @@
             oBall.dy = -oBall.dy;
             iBrokenBricks++;
             if (iBrokenBricks % 2 === 0){
-                oBall.dy = oBall.dy*1.1;
+                oBall.dy = oBall.dy*1.08;
             }
 
             if (iBrokenBricks === nBricks){
                 clearInterval(iStart);
                 clearInterval(iTotalTime);
+                addCompletedToScoreoid();
                 $('#fbShareButton').click(shareScoreOnFB(iMin + ':' + iSec));
                 $("#winScreenDiv p").text('You managed to finish the game in '+ iMin + ':' + iSec+'! Submit your name and see how you stand in the leaderboards!' );
                 $("#winScreenDiv").show();
@@ -321,6 +340,7 @@
         $("#loseScreenDiv").hide();
         $("#winScreenDiv").hide();
         $('#leaderboardsBox').hide();
+        addRestartToScoreoid();
         initialise();
     });
 
@@ -333,6 +353,34 @@
                 var wrapper = {playerData: response}
                 $('#leaderboardsBox').html(template(wrapper));
         });
+    }
+
+    function addRestartToScoreoid(){
+            $.post(" https://api.scoreoid.com/v1/getGameData", {api_key:"4fe408d16ed751b2504ef2c2e3f5a4ca61551a1d",game_id:"b93478f923", response:"json", key: 'fullData'},
+            function(response) {
+                console.log(response.fullData.nRestarts);
+                var newValue = parseInt(response.fullData.nRestarts)+1;
+                $.post(" https://api.scoreoid.com/v1/setGameData", {api_key:"4fe408d16ed751b2504ef2c2e3f5a4ca61551a1d",game_id:"b93478f923", response:"json", key: 'fullData.nRestarts', value: newValue},
+                    function(response) {
+                        console.log(response);
+                    }
+                );
+            }
+        );
+    }
+
+    function addCompletedToScoreoid(){
+        $.post(" https://api.scoreoid.com/v1/getGameData", {api_key:"4fe408d16ed751b2504ef2c2e3f5a4ca61551a1d",game_id:"b93478f923", response:"json", key: 'fullData'},
+            function(response) {
+                console.log(response.fullData.nCompleted);
+                var newValue = parseInt(response.fullData.nCompleted)+1;
+                $.post(" https://api.scoreoid.com/v1/setGameData", {api_key:"4fe408d16ed751b2504ef2c2e3f5a4ca61551a1d",game_id:"b93478f923", response:"json", key: 'fullData.nCompleted', value: newValue},
+                    function(response) {
+                        console.log(response);
+                    }
+                );
+            }
+        );
     }
 
 
@@ -349,7 +397,17 @@
    },
    function(response) {
      if (response && response.post_id) {
-       //add code to add a facebook share
+        $.post(" https://api.scoreoid.com/v1/getGameData", {api_key:"4fe408d16ed751b2504ef2c2e3f5a4ca61551a1d",game_id:"b93478f923", response:"json", key: 'fullData'},
+            function(response) {
+                console.log(response.fullData.nFBShares);
+                var newValue = parseInt(response.fullData.nFBShares)+1;
+                $.post(" https://api.scoreoid.com/v1/setGameData", {api_key:"4fe408d16ed751b2504ef2c2e3f5a4ca61551a1d",game_id:"b93478f923", response:"json", key: 'fullData.nFBShares', value: newValue},
+                    function(response) {
+                        console.log(response);
+                    }
+                );
+            }
+        );
      } else {
        //do nothing
      }

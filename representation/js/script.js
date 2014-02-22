@@ -206,6 +206,7 @@
             if (iBrokenBricks === 30){
                 clearInterval(iStart);
                 clearInterval(iTotalTime);
+                addCompletedToScoreoid();
                 $('#fbShareButton').click(shareScoreOnFB(iMin + ':' + iSec));
                 $("#winScreenDiv p").text('You won! Congratulations!' );
                 $("#winScreenDiv").show();
@@ -286,9 +287,37 @@
         $("#loseScreenDiv").hide();
         $("#winScreenDiv").hide();
         $('#leaderboardsBox').hide();
+        addRestartToScoreoid();
         initialise();
     });
 
+    function addRestartToScoreoid(){
+            $.post(" https://api.scoreoid.com/v1/getGameData", {api_key:"4fe408d16ed751b2504ef2c2e3f5a4ca61551a1d",game_id:"b93478f923", response:"json", key: 'representationData'},
+            function(response) {
+                console.log(response.representationData.nRestarts);
+                var newValue = parseInt(response.representationData.nRestarts)+1;
+                $.post(" https://api.scoreoid.com/v1/setGameData", {api_key:"4fe408d16ed751b2504ef2c2e3f5a4ca61551a1d",game_id:"b93478f923", response:"json", key: 'representationData.nRestarts', value: newValue},
+                    function(response) {
+                        console.log(response);
+                    }
+                );
+            }
+        );
+    }
+
+    function addCompletedToScoreoid(){
+        $.post(" https://api.scoreoid.com/v1/getGameData", {api_key:"4fe408d16ed751b2504ef2c2e3f5a4ca61551a1d",game_id:"b93478f923", response:"json", key: 'representationData'},
+            function(response) {
+                console.log(response.representationData.nCompleted);
+                var newValue = parseInt(response.representationData.nCompleted)+1;
+                $.post(" https://api.scoreoid.com/v1/setGameData", {api_key:"4fe408d16ed751b2504ef2c2e3f5a4ca61551a1d",game_id:"b93478f923", response:"json", key: 'representationData.nCompleted', value: newValue},
+                    function(response) {
+                        console.log(response);
+                    }
+                );
+            }
+        );
+    }
 
     function shareScoreOnFB(score){
        FB.ui(
@@ -303,7 +332,17 @@
    },
    function(response) {
      if (response && response.post_id) {
-       //add code to add a facebook share
+       $.post(" https://api.scoreoid.com/v1/getGameData", {api_key:"4fe408d16ed751b2504ef2c2e3f5a4ca61551a1d",game_id:"b93478f923", response:"json", key: 'representationData'},
+            function(response) {
+                console.log(response.representationData.nFBShares);
+                var newValue = parseInt(response.representationData.nFBShares)+1;
+                $.post(" https://api.scoreoid.com/v1/setGameData", {api_key:"4fe408d16ed751b2504ef2c2e3f5a4ca61551a1d",game_id:"b93478f923", response:"json", key: 'representationData.nFBShares', value: newValue},
+                    function(response) {
+                        console.log(response);
+                    }
+                );
+            }
+        );
      } else {
        //do nothing
      }
