@@ -210,10 +210,6 @@
                 $("#winScreenDiv p").text('You won! Congratulations!' );
                 $("#winScreenDiv").show();
                 $('#submitScoreZone').show();
-                if (playerName !== ''){
-                    $('#playerName').val(playerName);
-                }
-
 
                 // HTML5 Local storage - save values
                 localStorage.setItem('best-time', iMin + ':' + iSec);
@@ -225,17 +221,14 @@
 
         // when ball hits the sidewall, reverse X position of ball
         if (oBall.x + oBall.dx + oBall.r > ctx.canvas.width || oBall.x + oBall.dx - oBall.r < 0) {
-            console.log('hit sidewall')
             oBall.dx = -oBall.dx;
         }
 
         if (oBall.y + oBall.dy - oBall.r < 0) {
-            console.log('dunno what this does');
             oBall.dy = -oBall.dy;
 
         //if ball hits the PAD, reverse in angle
         } else if (oBall.y + oBall.dy + oBall.r > ctx.canvas.height - 25) {
-            console.log('hit the pad');
             if (oBall.x > oPadd.x && oBall.x < oPadd.x + oPadd.w) {
                 oBall.dx = 10 * ((oBall.x-(oPadd.x+oPadd.w/2))/oPadd.w);
                 oBall.dy = -oBall.dy;

@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" >
     <head>
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
         <!-- Google Analytics Content Experiment code -->
         <script type="text/javascript">
 
@@ -17,17 +18,74 @@
         </script>
         <!-- End of Google Analytics Content Experiment code -->
         <meta charset="utf-8" />
-        <title>Basic Arkanoid</title>
+        <title>Arkanoidz</title>
         <link href="css/main.css" rel="stylesheet" type="text/css" />
-        
+
     </head>
     <body>
-        <header>
-            <h2>Full Arkanoid</h2>
-        </header>
+    <div id="fb-root"></div>
+<script>
+  window.fbAsyncInit = function() {
+  FB.init({appId: '397401780403890', status: true, cookie: true,
+         xfbml: true});
+};
+(function() {
+    var e = document.createElement('script'); e.async = true;
+    e.src = document.location.protocol +
+      '//connect.facebook.net/en_US/all.js';
+    document.getElementById('fb-root').appendChild(e);
+}());
+</script>
         <div class="container">
-            <canvas id="scene" width="800" height="600"></canvas>
+            <div id="introScreenDiv">
+                <div id="controlsInfo">
+                    <p>
+                    This came game can be controlled with the left and right arrow keys or your mouse. Please press the button below to start.
+                    </p>
+                </div>
+                <button id='startGameButton'>Start Game</button>
+            </div>
+             <div id="loseScreenDiv">
+                <div id="loseScreenText">
+                    <p>
+                    You lost! Would you like to try again?
+                    </p>
+                </div>
+                <button class='restartGameButton' id="lostGameButton">Try Again</button>
+            </div>
+            <div id="winScreenDiv">
+                <div id="submitScoreZone">
+                    <div id="winScreenText">
+                        <p>
+                        You won! Submit your name and see how you stand in the leaderboards!
+                        </p>
+                    </div>
+                    <div id="noNameText"> You forgot to insert your name!</div>
+                    <input type="text" id="nameInput" maxlength="10" placeholder="Insert Your Name"></input>
+                    <button id="submitHighscoreButton">Submit Highscore</button>
+                </div>
+                <div id="leaderboardsBox"></div>
+                <script id="leaderboards" type="text/x-handlebars-template">
+                <table>
+                    <tr>
+                        <th>Player</th>
+                        <th>Finished in</th>
+                    </tr>
+                    {{#each playerData}}
+                        <tr>
+                            <td class="playerName">{{Player.username}}</td>
+                            <td class="playerScore">{{Score.score}} seconds</td>
+                        </tr>
+                    {{/each}}
+                </table>
+                </script>
+                <img src="images/fbShare.png" id="fbShareButton">
+                <button class='restartGameButton' id="wonGameButton">Try Again</button>
+            </div>
+            <canvas id="scene" width="600" height="600"></canvas>
         </div>
+        <img id="bgImg" src="images/bg.png" width="600" height="600">
     </body>
+    <script src="js/handlebars.js"></script>
     <script src="js/script.js"></script>
 </html>
