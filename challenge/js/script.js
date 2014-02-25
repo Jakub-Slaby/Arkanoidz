@@ -190,10 +190,8 @@
             oBricks.objs[iRow][iCol] = 0;
             oBall.dy = -oBall.dy;
             iBrokenBricks++;
-            console.log(iBrokenBricks);
             if (iBrokenBricks % 2 === 0){
                 oBall.dy = oBall.dy*1.08;
-                console.log(oBall.dy);
             }
 
             if (iBrokenBricks === 30){
