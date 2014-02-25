@@ -206,6 +206,7 @@
             if (iBrokenBricks === nBricks){
                 clearInterval(iStart);
                 clearInterval(iTotalTime);
+                _gaq.push(['_trackEvent', 'Random', 'Completed', 'Random.Completed', iScoredTime]);
                 addCompletedToScoreoid();
                 $("#winScreenDiv p").text('You won! Congratulations!' );
                 $("#winScreenDiv").show();
@@ -225,17 +226,14 @@
 
         // when ball hits the sidewall, reverse X position of ball
         if (oBall.x + oBall.dx + oBall.r > ctx.canvas.width || oBall.x + oBall.dx - oBall.r < 0) {
-            console.log('hit sidewall')
             oBall.dx = -oBall.dx;
         }
 
         if (oBall.y + oBall.dy - oBall.r < 0) {
-            console.log('dunno what this does');
             oBall.dy = -oBall.dy;
 
         //if ball hits the PAD, reverse in angle
         } else if (oBall.y + oBall.dy + oBall.r > ctx.canvas.height - 25) {
-            console.log('hit the pad');
             if (oBall.x > oPadd.x && oBall.x < oPadd.x + oPadd.w) {
                 oBall.dx = 10 * ((oBall.x-(oPadd.x+oPadd.w/2))/oPadd.w);
                 oBall.dy = -oBall.dy;
@@ -286,11 +284,10 @@
 
     });
     $( ".restartGameButton" ).click(function() {
+        _gaq.push(['_trackEvent', 'Random', 'Restart', 'Random.Restart']);
         iBrokenBricks = 0;
         nBricks = 0;
         iScoredTime = 0;
-        //$('#nameInput').prop('disabled',false);
-        //$('#submitHighscoreButton').prop('disabled',false);
         $("#loseScreenDiv").hide();
         $("#winScreenDiv").hide();
         $('#leaderboardsBox').hide();
@@ -343,6 +340,7 @@
    },
    function(response) {
      if (response && response.post_id) {
+        _gaq.push(['_trackEvent', 'Random', 'FBShare', 'Random.FBShare']);
        $.post(" https://api.scoreoid.com/v1/getGameData", {api_key:"4fe408d16ed751b2504ef2c2e3f5a4ca61551a1d",game_id:"b93478f923", response:"json", key: 'randomData'},
             function(response) {
                 console.log(response.randomData.nFBShares);

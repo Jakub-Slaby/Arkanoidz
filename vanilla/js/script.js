@@ -188,6 +188,7 @@
             if (iBrokenBricks === 30){
                 clearInterval(iStart);
                 clearInterval(iTotalTime);
+                _gaq.push(['_trackEvent', 'Vanilla', 'Completed', 'Vanilla.Completed', iScoredTime]);
                 addCompletedToScoreoid();
                 $("#winScreenDiv p").text('You won! Congratulations!' );
                 $("#winScreenDiv").show();
@@ -207,17 +208,14 @@
 
         // when ball hits the sidewall, reverse X position of ball
         if (oBall.x + oBall.dx + oBall.r > ctx.canvas.width || oBall.x + oBall.dx - oBall.r < 0) {
-            console.log('hit sidewall')
             oBall.dx = -oBall.dx;
         }
 
         if (oBall.y + oBall.dy - oBall.r < 0) {
-            console.log('dunno what this does');
             oBall.dy = -oBall.dy;
 
         //if ball hits the PAD, reverse in angle
         } else if (oBall.y + oBall.dy + oBall.r > ctx.canvas.height - 25) {
-            console.log('hit the pad');
             if (oBall.x > oPadd.x && oBall.x < oPadd.x + oPadd.w) {
                 oBall.dx = 10 * ((oBall.x-(oPadd.x+oPadd.w/2))/oPadd.w);
                 oBall.dy = -oBall.dy;
@@ -268,10 +266,9 @@
 
     });
     $( ".restartGameButton" ).click(function() {
+        _gaq.push(['_trackEvent', 'Vanilla', 'Restart', 'Vanilla.Restart']);
         iBrokenBricks = 0;
         iScoredTime = 0;
-        //$('#nameInput').prop('disabled',false);
-        //$('#submitHighscoreButton').prop('disabled',false);
         $("#loseScreenDiv").hide();
         $("#winScreenDiv").hide();
         $('#leaderboardsBox').hide();
@@ -282,7 +279,7 @@
     function addRestartToScoreoid(){
             $.post(" https://api.scoreoid.com/v1/getGameData", {api_key:"4fe408d16ed751b2504ef2c2e3f5a4ca61551a1d",game_id:"b93478f923", response:"json", key: 'vanillaData'},
             function(response) {
-                console.log(response.fullData.nRestarts);
+                console.log(response.vanillaData.nRestarts);
                 var newValue = parseInt(response.vanillaData.nRestarts)+1;
                 $.post(" https://api.scoreoid.com/v1/setGameData", {api_key:"4fe408d16ed751b2504ef2c2e3f5a4ca61551a1d",game_id:"b93478f923", response:"json", key: 'vanillaData.nRestarts', value: newValue},
                     function(response) {
@@ -324,6 +321,7 @@
    },
    function(response) {
      if (response && response.post_id) {
+        _gaq.push(['_trackEvent', 'Vanilla', 'FBShare', 'Vanilla.FBShare']);
        $.post(" https://api.scoreoid.com/v1/getGameData", {api_key:"4fe408d16ed751b2504ef2c2e3f5a4ca61551a1d",game_id:"b93478f923", response:"json", key: 'vanillaData'},
             function(response) {
                 console.log(response.vanillaData.nFBShares);

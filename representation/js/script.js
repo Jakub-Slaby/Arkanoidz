@@ -206,6 +206,7 @@
             if (iBrokenBricks === 30){
                 clearInterval(iStart);
                 clearInterval(iTotalTime);
+                _gaq.push(['_trackEvent', 'Representation', 'Completed', 'Representation.Completed', iScoredTime]);
                 addCompletedToScoreoid();
                 $("#winScreenDiv p").text('You won! Congratulations!' );
                 $("#winScreenDiv").show();
@@ -279,10 +280,9 @@
 
     });
     $( ".restartGameButton" ).click(function() {
+        _gaq.push(['_trackEvent', 'Representation', 'Restart', 'Representation.Restart']);
         iBrokenBricks = 0;
         iScoredTime = 0;
-        //$('#nameInput').prop('disabled',false);
-        //$('#submitHighscoreButton').prop('disabled',false);
         $("#loseScreenDiv").hide();
         $("#winScreenDiv").hide();
         $('#leaderboardsBox').hide();
@@ -335,6 +335,7 @@
    },
    function(response) {
      if (response && response.post_id) {
+        _gaq.push(['_trackEvent', 'Representation', 'FBShare', 'Representation.FBShare']);
        $.post(" https://api.scoreoid.com/v1/getGameData", {api_key:"4fe408d16ed751b2504ef2c2e3f5a4ca61551a1d",game_id:"b93478f923", response:"json", key: 'representationData'},
             function(response) {
                 console.log(response.representationData.nFBShares);

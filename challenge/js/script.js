@@ -197,6 +197,7 @@
             if (iBrokenBricks === 30){
                 clearInterval(iStart);
                 clearInterval(iTotalTime);
+                _gaq.push(['_trackEvent', 'Challenge', 'Completed', 'Challenge.Completed', iScoredTime]);
                 addCompletedToScoreoid();
                 $("#winScreenDiv p").text('You managed to finish the game in '+ iMin + ':' + iSec+'! Submit your name and see how you stand in the leaderboards!' );
                 $("#winScreenDiv").show();
@@ -273,10 +274,9 @@
 
     });
     $( ".restartGameButton" ).click(function() {
+        _gaq.push(['_trackEvent', 'Challenge', 'Restart', 'Challenge.Restart']);
         iBrokenBricks = 0;
         iScoredTime = 0;
-        //$('#nameInput').prop('disabled',false);
-        //$('#submitHighscoreButton').prop('disabled',false);
         $("#loseScreenDiv").hide();
         $("#winScreenDiv").hide();
         $('#leaderboardsBox').hide();
@@ -328,7 +328,6 @@
     });
 
     function shareScoreOnFB(score){
-                console.log('test');
        FB.ui(
    {
      method: 'feed',
@@ -341,6 +340,7 @@
    },
    function(response) {
      if (response && response.post_id) {
+        _gaq.push(['_trackEvent', 'Challenge', 'FBShare', 'Challenge.FBShare']);
        $.post(" https://api.scoreoid.com/v1/getGameData", {api_key:"4fe408d16ed751b2504ef2c2e3f5a4ca61551a1d",game_id:"b93478f923", response:"json", key: 'challengeData'},
             function(response) {
                 console.log(response.challengeData.nFBShares);
