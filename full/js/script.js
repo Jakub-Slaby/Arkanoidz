@@ -391,7 +391,7 @@
    {
      method: 'feed',
      name: 'Arkanoidz',
-     link: 'http://jakubs.eu/test/challenge',
+     link: 'http://jakubs.eu/test/vanilla',
      picture: 'http://jakubs.eu/test/arkimg.PNG',
      caption: 'I managed to finish Arkanoidz in '+score+' seconds, can you beat that?',
      description: 'Arkanoidz is an experimental game designed by Jakub Slaby as a part of his Honours project at the Edinburgh Napier University',
